@@ -47,9 +47,18 @@ public class BulletSpawner : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        // 如果激活，则连续不断的发射
-        StartCoroutine(BulletGenerator());
+        // 让生成的新子弹预设外观保持一致
+        foreach (GameObject eachPrefab in prefabs)
+        {
+            eachPrefab.GetComponent<SpriteRenderer>().material = gameObject.GetComponent<SpriteRenderer>().material;
+            eachPrefab.GetComponent<SpriteRenderer>().sortingOrder = gameObject.GetComponent<SpriteRenderer>().sortingOrder;
+        }
+
+        // 获取角色的脚本，并以此来得到诸如“禁止开枪”之类的角色属性
+        PlayerScript = GetComponent<PlayerCharacter>();
         startPos = gunPoint.GetComponent<Transform>();
+
+
         
         // PlayerScript = GetComponent<>
     }
